@@ -18,6 +18,8 @@
 
         #adventure-container {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 2s ease-in-out;
+            transform-origin: center center;
         }
 
         /* Initially hide shield, tie, and helmet */
@@ -258,6 +260,9 @@
         door.addEventListener('click', (e) => {
             e.stopPropagation();
 
+            // Get the container element for camera zoom
+            const container = document.getElementById('adventure-container');
+
             // Hide all buttons
             shieldBtn.classList.add('hidden');
             tieBtn.classList.add('hidden');
@@ -265,6 +270,11 @@
 
             // Remove door glow animation
             door.style.animation = 'none';
+
+            // Apply camera zoom effect - zoom in 2x and pan up to focus on door
+            // Door is at y: ~295 in SVG coordinates
+            // SVG height is 812, so we need to translate up to center on door
+            container.style.transform = 'scale(2.5) translateY(-60px)';
 
             // Calculate the position of the door center
             // Door is at approximately x: 232 (center)
